@@ -22,11 +22,8 @@ class Receipt(object):
         return self.__users
 
     def update_bill_database(self):
-        print self.__users
         for user in self.__users:
-            print user
             self.__bill_database[user] = {}
-            print 'Came'
 
     def split_factory(self, split_mode):
         """

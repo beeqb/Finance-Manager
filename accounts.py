@@ -43,10 +43,21 @@ class Account(object):
         bill_database['Store'] = store
         bill_database['Time'] = datetime
         self.__database['Receipt'] = bill_database
+        # print self.__database
+
+    def clear_database(self):
+        self.__database = {}
+
+    def __repr__(self):
+        print 'Printing ... '
         print self.__database
+        return ''
 
 if __name__ == "__main__":
     myAccount = Account('database/HL.npy')
     myAccount.read_database()
     myAccount.add_receipt("Luckys", '10-Dec-2017, 10:30:PM')
+    # myAccount.read_database()
+    print myAccount
+    myAccount.clear_database()
     myAccount.save_database()
