@@ -63,20 +63,22 @@ class Receipt(object):
 
     def add_item(self, product, quantity, amount, split='equal'):
         if split != 'equal':
-            self.get_split_strategy()
+            split_strategy = self.get_split_strategy()
         else:
-            self.__split_strategy = [1./self.__split_among]*self.__split_among
+            split_strategy = [1./self.__split_among]*self.__split_among
+
         self.adjust_numbers()
         self.store_product_rates()
+        print ''
 
         local_id = 0
         for user in self.__bill_database.keys():
-            self.__bill_database[user][product] = amount*self.__split_strategy[local_id]
-            local_id = local_id + 1
+            self.__bill_database[user][product] = amount*split_strategy[local_id]
+            local_id += 1
 
     def add_items(self):
         while(not self._stop):
-            data = raw_input('Please give me the product, quantity in lbs, amount in $ (Product:Quantity:Amount): ')
+            data = raw_input('Please give me the product, quantity in lbs, amount in $ (Product:Quantity:Amount:Equal or not): ')
             data = data.split(':', 3)
             if len(data) < 3:
                 self._stop = True
