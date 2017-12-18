@@ -49,16 +49,21 @@ class Account(object):
         self.__database = {}
 
     def __repr__(self):
-        print 'Printing ... '
+        print ''
         for key in self.__database.keys():
+            print 'Time:', key
+            print 'Store:', self.__database[key]['Store']
             for user in self.__database[key].keys():
-                print user, ':', self.__database[key][user]
+                if user is not 'Store':
+                    print user
+                    for product in self.__database[key][user].keys():
+                        print '-', product, ':', self.__database[key][user][product]
         return ''
 
 if __name__ == "__main__":
     myAccount = Account('database/HL.npy')
     myAccount.read_database()
-    myAccount.add_receipt("Luckys", '10-Dec-2017, 10:30:PM')
+    myAccount.add_receipt("Luckys", '10-Dec-2017, 10:30:00 PM')
     # myAccount.read_database()
     print myAccount
     myAccount.clear_database()
