@@ -41,8 +41,8 @@ class Account(object):
         receipt.add_items()
         bill_database = receipt.get_database()
         bill_database['Store'] = store
-        bill_database['Time'] = datetime
-        self.__database['Receipt'] = bill_database
+        # bill_database['Time'] = datetime
+        self.__database[datetime] = bill_database
         # print self.__database
 
     def clear_database(self):
