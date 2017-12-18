@@ -49,6 +49,7 @@ class Receipt(object):
         if sum(self.__split_strategy) != 1.:
             print 'Should total to 1. Aborting ...'
             self.get_split_strategy()
+            return self.get_split_strategy()
         else:
             return
 
