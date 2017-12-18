@@ -66,5 +66,6 @@ if __name__ == "__main__":
     myAccount.add_receipt("Luckys", '10-Dec-2017, 10:30:00 PM')
     # myAccount.read_database()
     print myAccount
-    myAccount.clear_database()
-    myAccount.save_database()
+    myAccount.return_total()
+    # myAccount.clear_database()
+    # myAccount.save_database()
