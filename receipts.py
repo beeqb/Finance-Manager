@@ -42,16 +42,16 @@ class Receipt(object):
     def get_split_strategy(self):
         split_strategy = raw_input("Please give me the split strategy in decimals (should add up to 1), like (0.5:0.5) : ")
         split_strategy = split_strategy.split(':')
+        strategy = []
         for percentage in split_strategy:
             if percentage is not '':
-                self.__split_strategy.append(float(percentage))
+                strategy.append(float(percentage))
 
-        if sum(self.__split_strategy) != 1.:
+        if sum(strategy) != 1.:
             print 'Should total to 1. Aborting ...'
-            self.get_split_strategy()
             return self.get_split_strategy()
         else:
-            return
+            return strategy
 
     def adjust_numbers(self):
         # TODO: If the sum in split strategy does not sum upto 1, it adjusts the numbers among everyone equally to sum it upto 1.
