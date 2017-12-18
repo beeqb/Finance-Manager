@@ -57,7 +57,7 @@ class Receipt(object):
         pass
 
     def store_product_rates(self):
-        # Store rate of item per lbs. Just for fun and review in future. Not good for anything other than that.
+        # TODO: Store rate of item per lbs. Just for fun and review in future. Not good for anything other than that.
         pass
 
     def add_item(self, product, quantity, amount, split='equal'):
