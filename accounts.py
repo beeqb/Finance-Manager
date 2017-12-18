@@ -51,8 +51,8 @@ class Account(object):
     def __repr__(self):
         print ''
         for key in self.__database.keys():
-            print 'Time:', key
             print 'Store:', self.__database[key]['Store']
+            print 'Time:', key
             for user in self.__database[key].keys():
                 if user is not 'Store':
                     print user
