@@ -50,7 +50,9 @@ class Account(object):
 
     def __repr__(self):
         print 'Printing ... '
-        print self.__database
+        for key in self.__database.keys():
+            for user in self.__database[key].keys():
+                print user, ':', self.__database[key][user]
         return ''
 
 if __name__ == "__main__":
