@@ -87,7 +87,8 @@ class Receipt(object):
                 product = data[0]
                 quantity = float(data[1])
                 amount = float(data[2])
-                self.add_item(product, quantity, amount)
+                strategy = data[3]
+                self.add_item(product, quantity, amount, split=strategy)
 
     def get_database(self):
         return self.__bill_database
