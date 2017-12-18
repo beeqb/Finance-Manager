@@ -41,9 +41,20 @@ class Account(object):
         receipt.add_items()
         bill_database = receipt.get_database()
         bill_database['Store'] = store
-        # bill_database['Time'] = datetime
         self.__database[datetime] = bill_database
-        # print self.__database
+
+    def get_total(self, user):
+        return user.values()
+
+    def return_total(self):
+        print ''
+        for key in self.__database.keys():
+            print 'Store:', self.__database[key]['Store']
+            print 'Time:', key
+            for user in self.__database[key].keys():
+                if user is not 'Store':
+                    print user, ":", sum(self.get_total(self.__database[key][user]))
+
 
     def clear_database(self):
         self.__database = {}
