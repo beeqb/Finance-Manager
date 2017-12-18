@@ -92,3 +92,11 @@ class Receipt(object):
 
     def get_database(self):
         return self.__bill_database
+
+    def __repr__(self):
+        for user in self.__bill_database.keys():
+            if user is not 'Store':
+                print user
+                for product in self.__bill_database[user].keys():
+                    print '-', product, ':', self.__bill_database[user][product]
+        return ''
