@@ -1,5 +1,5 @@
 class Receipt(object):
-    def __init__(self, store, datetime, split_mode=1):
+    def __init__(self, store, datetime, split_mode=2):
         """
         :param store: String indicating name of the store
         :param split_mode: There are two modes as of now namely,
@@ -10,9 +10,9 @@ class Receipt(object):
         self.__store = store
         self.__time = datetime
         self.__users = []
+        self.__split_strategy = {}
         self.__split_mode = self.split_factory(split_mode)
         self.__split_among = len(self.__users)
-        self.__split_strategy = []
         self._stop = False
 
     def get_users(self):
@@ -24,6 +24,7 @@ class Receipt(object):
     def update_bill_database(self):
         for user in self.__users:
             self.__bill_database[user] = {}
+            self.__split_strategy[user] = 1./len(self.__users)
 
     def split_factory(self, split_mode):
         """
@@ -40,13 +41,19 @@ class Receipt(object):
         self.update_bill_database()
 
     def get_split_strategy(self):
+        print self.__users
         split_strategy = raw_input("Please give me the split strategy in decimals (should add up to 1), like (0.5:0.5) : ")
         split_strategy = split_strategy.split(':')
         strategy = []
-        for percentage in split_strategy:
-            if percentage is not '':
-                strategy.append(float(percentage))
 
+        for i in range(0, len(split_strategy)):
+            if split_strategy[i] is not '':
+                percentage = split_strategy[i]
+            user = self.__users[i]
+            self.__split_strategy[user] = float(percentage)
+            strategy.append(float(percentage))
+
+        print strategy
         if sum(strategy) != 1.:
             print 'Should total to 1. Aborting ...'
             return self.get_split_strategy()
@@ -65,7 +72,6 @@ class Receipt(object):
         if split != 'equal':
             split_strategy = self.get_split_strategy()
         else:
-	    print self.__split_among
             split_strategy = [1./self.__split_among]*self.__split_among
 
         self.adjust_numbers()
@@ -74,7 +80,7 @@ class Receipt(object):
 
         local_id = 0
         for user in self.__bill_database.keys():
-            self.__bill_database[user][product] = amount*split_strategy[local_id]
+            self.__bill_database[user][product] = amount*self.__split_strategy[user]
             local_id += 1
 
     def add_items(self):
