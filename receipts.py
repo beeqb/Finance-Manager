@@ -9,14 +9,14 @@ class Receipt(object):
         self.__bill_database = {}
         self.__store = store
         self.__time = datetime
-        self.__users = ['Hari']
+        self.__users = []
         self.__split_mode = self.split_factory(split_mode)
         self.__split_among = len(self.__users)
-        self.__split_strategy = [1.]
+        self.__split_strategy = []
         self._stop = False
 
     def get_users(self):
-        return raw_input("Please give me the list of users excluding the owner in this format 'Kiran:Vishnu' : ")
+        return raw_input("Please give me the list of users including the owner in this format 'Kiran:Vishnu' : ")
 
     def return_users(self):
         return self.__users
@@ -65,6 +65,7 @@ class Receipt(object):
         if split != 'equal':
             split_strategy = self.get_split_strategy()
         else:
+	    print self.__split_among
             split_strategy = [1./self.__split_among]*self.__split_among
 
         self.adjust_numbers()
@@ -80,15 +81,24 @@ class Receipt(object):
         while(not self._stop):
             data = raw_input('Please give me the product, quantity in lbs, amount in $ (Product:Quantity:Amount:Equal or not): ')
             data = data.split(':', 3)
-            if len(data) < 3:
-                self._stop = True
-                break
-            else:
+	    print data
+            if len(data) == 1:
+		self._stop = True
+		break
+	    elif len(data) < 2:
+		print "All required information was not given. Please try again.."
+		self.add_items()
+            elif len(data) == 4:
                 product = data[0]
                 quantity = float(data[1])
                 amount = float(data[2])
                 strategy = data[3]
                 self.add_item(product, quantity, amount, split=strategy)
+            else:
+                product = data[0]
+                quantity = float(data[1])
+                amount = float(data[2])
+                self.add_item(product, quantity, amount)
 
     def get_database(self):
         return self.__bill_database
