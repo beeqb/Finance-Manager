@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 """
 @developer: Harikrishnan Lakshmanan
 @date: 17 Dec 17
 """
 
 import numpy as np
+import string
 from receipts import Receipt
 
 class Account(object):
@@ -70,13 +72,3 @@ class Account(object):
                     for product in self.__database[key][user].keys():
                         print '-', product, ':', self.__database[key][user][product]
         return ''
-
-if __name__ == "__main__":
-    myAccount = Account('database/HL.npy')
-    myAccount.read_database()
-    myAccount.add_receipt("Luckys", '10-Dec-2017, 10:30:00 PM')
-    # myAccount.read_database()
-    print myAccount
-    myAccount.return_total()
-    # myAccount.clear_database()
-    # myAccount.save_database()
